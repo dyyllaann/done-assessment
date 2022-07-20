@@ -5,4 +5,21 @@ body {
     sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background: rgb(224, 253, 252) center/cover url("images/background.jpg") no-repeat fixed;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
+}
+
+nav {
+    padding: 10px;
+    background-color: #fff;
+    text-align: right;
+}
+
+nav > * {
+    font-weight: 300;
+    padding: 10px;
 }
