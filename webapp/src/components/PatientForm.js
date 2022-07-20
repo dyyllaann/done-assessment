@@ -12,6 +12,9 @@ import axios from "axios";
 /* Resource Imports */
 import logo from "../images/logo.png";
 
+/* Server Exports */
+export const ENDPOINT = "http://localhost:8080";
+
 export default function Form() {
 	/* State Declarations */
 	const [dateOfBirthValue, setDateOfBirthValue] = React.useState(null);
@@ -21,7 +24,7 @@ export default function Form() {
 	/* Get current length of data entries for assigning ID */
 	async function getDataLength() {
 		try {
-			const response = await axios.get("http://localhost:8080/patients");
+			const response = await axios.get(`${ENDPOINT}/patients`);
 			return response.data.length;
 		} catch (error) {
 			console.error(error);
