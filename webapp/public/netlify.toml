@@ -1,6 +1,6 @@
 [[redirects]]
-  from = "/"
-  to = "https://main--splendid-dango-2fe042.netlify.app/"
+  from = "/*"
+  to = "/index.html"
   status = 200
   force = true
   headers = {X-From = "Netlify"}
