@@ -38,9 +38,10 @@ package main
 
 import (
     "net/http"
+    // "time"
 
+    "github.com/gin-contrib/cors"
     "github.com/gin-gonic/gin"
-    cors "github.com/rs/cors/wrapper/gin"
 )
 
 // 'patient' represents data about a patient.
@@ -81,7 +82,21 @@ var patients = []patient{
 
 func main() {
     router := gin.Default()
-    config := cors.Defaul()
+    // CORS for https://foo.com and https://github.com origins, allowing:
+    // - PUT and PATCH methods
+    // - Origin header
+    // - Credentials share
+    // - Preflight requests cached for 12 hours
+    router.Use(cors.New(cors.Config{
+        AllowOrigins:     []string{"*"},
+        AllowMethods:     []string{"GET", "POST", "PUT", "PATCH"},
+        AllowHeaders:     []string{"Origin", "Content-Type", "Content-Length", "Accept-Encoding", "X-CSRF-Token", "Authorization", "accept", "origin", "Cache-Control", "X-Requested-With"},
+        ExposeHeaders:    []string{"Content-Length", "*"},
+        AllowCredentials: true,
+        AllowOriginFunc: func(origin string) bool {
+            return origin == "*"
+        },
+    }))
 
     router.GET("/upload")
     router.GET("/patients", getPatients)
