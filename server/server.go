@@ -81,7 +81,11 @@ var patients = []patient{
 
 func main() {
     router := gin.Default()
-    router.Use(cors.Default())
+
+    config := cors.DefaultConfig()
+    config.AllowOrigins = []string{"https://main--splendid-dango-2fe042.netlify.app/"}
+
+    router.Use(cors.New(config))
 
     router.GET("/upload")
     router.GET("/patients", getPatients)
@@ -90,33 +94,26 @@ func main() {
     router.Run("localhost:8080")
 }
 
-// getPatients responds with the list of all patients as JSON.
+/* Get patients */
 func getPatients(c *gin.Context) {
     c.IndentedJSON(http.StatusOK, patients)
 }
 
-// postPatients adds an patient from JSON received in the request body.
+/* Post new patient */
 func postPatients(c *gin.Context) {
     var newPatient patient
 
-    // Call BindJSON to bind the received JSON to
-    // newPatient.
     if err := c.BindJSON(&newPatient); err != nil {
         return
     }
 
-    // Add the new patient to the slice.
     patients = append(patients, newPatient)
     c.IndentedJSON(http.StatusCreated, newPatient)
 }
 
-// getPatientByID locates the patient whose ID value matches the id
-// parameter sent by the client, then returns that patient as a response.
+/* Find patient by id */
 func getPatientByID(c *gin.Context) {
     id := c.Param("id")
-
-    // Loop through the list of patients, looking for
-    // an patient whose ID value matches the parameter.
     for _, a := range patients {
         if a.ID == id {
             c.IndentedJSON(http.StatusOK, a)
