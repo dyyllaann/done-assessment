@@ -81,11 +81,7 @@ var patients = []patient{
 
 func main() {
     router := gin.Default()
-
-    config := cors.DefaultConfig()
-    config.AllowOrigins = []string{"https://main--splendid-dango-2fe042.netlify.app/"}
-
-    router.Use(cors.New(config))
+    config := cors.Defaul()
 
     router.GET("/upload")
     router.GET("/patients", getPatients)
